@@ -1,33 +1,3 @@
-#!/bin/bash
-# Install necessary dependencies
-npm install puppeteer axios form-data socks-proxy-agent worker_threads os crypto readline fs perf_hooks
-
-# Run the script
-node script.js
-
-// package.json
-{
-  "name": "upload-script",
-  "version": "1.0.0",
-  "description": "Automated file upload with encryption and threading",
-  "main": "script.js",
-  "scripts": {
-    "start": "node script.js"
-  },
-  "dependencies": {
-    "axios": "^1.3.0",
-    "form-data": "^4.0.0",
-    "socks-proxy-agent": "^6.0.0",
-    "worker_threads": "^1.0.0",
-    "os": "^0.1.2",
-    "crypto": "^1.0.1",
-    "readline": "^1.3.0",
-    "fs": "^0.0.1-security",
-    "perf_hooks": "^1.0.0",
-    "puppeteer": "^21.3.0"
-  }
-}
-
 import fs from 'fs';
 import axios from 'axios';
 import FormData from 'form-data';
@@ -138,4 +108,5 @@ if (!isMainThread) {
         const exampleBuffer = Buffer.from('This is a test file content');
         await uploadLargeFile(exampleBuffer);
     })();
-}
+          }
+  
